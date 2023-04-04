@@ -14,26 +14,25 @@ db.on ('disconnected',() => console.log ('mongo disconnected'));
 
 app.use(express.urlencoded({extended:false}));
 
-const logData = 
-[
-{
-    title: "Test 1",
-    entry: "Test 1",
-    shipIsBroken: false,
-},
-{
-    title: "Test 2",
-    entry: "Test 2",
-    shipIsBroken: true,
-},
-
-{
-    title: "Test 3",
-    entry: "Test 3",
-    shipIsBroken: false
-}
-]
-
+const logData = [
+    {
+      title: "System Error",
+      entry: "The server crashed unexpectedly",
+      shipIsBroken: false,
+      
+    },
+    {
+      title: "Database Connection Error",
+      entry: "Unable to establish connection to the database server",
+      shipIsBroken: false,
+    },
+    {
+      title: "Login Attempt",
+      entry: "User 'johndoe' attempted to login with an incorrect password",
+      shipIsBroken: true,
+    },
+    
+  ];
 
 const logDB = async () => {
 await Log.deleteMany({})

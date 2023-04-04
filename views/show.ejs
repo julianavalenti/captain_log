@@ -7,13 +7,15 @@
     <title>Document</title>
 </head>
 <body>
+    <a href="/logs">Back to Home</a>
     <h1>Captain Logs</h1>
     <ul>
-         <% logs.forEach(log => { %>
+         
             
-            <a href="/logs/<%=log._id %>"> <%=log.title%> </a>
-            
-       <% }) %>
+            <li>Title: <%=log.title%></li>
+            <li>Entry: <%=log.entry%></li>
+            <li>Ship is Broken? <%=log.shipIsBroken%></li>
+     
     </ul>
 </body>
 </html>

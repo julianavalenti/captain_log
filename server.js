@@ -45,5 +45,13 @@ app.post ('/new',(req,res) => {
     createdLog.save().then(res.redirect('/logs'))
 })
 
+//S for show
+
+app.get('/logs/:id', async (req, res) => {
+	const foundLog = await Log.findById(req.params.id).exec()
+    res.render('show.ejs', {
+        log: foundLog,
+    });
+}); 
 app.listen(PORT)
 console.log ('listening')
