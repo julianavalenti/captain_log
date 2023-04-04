@@ -8,14 +8,16 @@
 </head>
 <body>
     <h1>Captain Logs</h1>
+    <a href="/logs/new">Create a new log</a>
     <ul>
          <% logs.forEach(log => { %>
             
             <a href="/logs/<%=log._id %>"> <%=log.title%> </a>
             <form action="/logs/<%=log.id%>?_method=DELETE" method="POST">
                 <input type="submit" name="" id="" value="DELETE">
-            
+                
             </form>
+            <a href="/logs/<%=log._id %>/edit">Edit</a>
             
        <% }) %>
     </ul>

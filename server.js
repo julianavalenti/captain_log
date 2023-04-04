@@ -19,19 +19,20 @@ app.use(methodOverride("_method"))
 app.use(express.urlencoded({extended:false}));
 
 
-// N for New 
-
-app.get("/new", (req,res) =>{
-    res.render("new.ejs")
-})
-
 app.get('/logs', async (req, res) => {
 	const allLogs = await Log.find({})
     res.render('index.ejs', {
         logs: allLogs
     }
     );
-}); 
+});
+// N for New 
+
+app.get("/logs/new", (req,res) =>{
+    res.render("new.ejs")
+})
+
+ 
 
 //D for Delete
 
@@ -42,7 +43,12 @@ app.delete('/logs/:id', async (req,res) => {
 
 //U for update
 
-app.put("logs/:id", async (req,res)=> {
+app.put("/logs/:id", async (req,res)=> {
+    if (req.body.completed === "on") {
+        req.body.completed = true
+      } else {
+        req.body.completed = false
+      }
 await Log.findByIdAndUpdate(
     req.params.id,
     req.body,
@@ -50,12 +56,14 @@ await Log.findByIdAndUpdate(
     new:true
 }
 )
-res.redirect('logs/${req.params.id}')
+res.redirect(`/logs/${req.params.id}`)
 })
+
+
 
 // C is for Create 
 
-app.post ('/new',(req,res) => {
+app.post ('/logs/new',(req,res) => {
     if (req.body.completed === 'on') {
         req.body.completed = true;
     }else {
@@ -65,6 +73,16 @@ app.post ('/new',(req,res) => {
     createdLog.save().then(res.redirect('/logs'))
 })
 
+//E for Edit 
+
+app.get("/logs/:id/edit", async (req,res) => {
+    const foundLog = await Log.findById(
+        req.params.id,
+        );
+    res.render("edit.ejs", {
+        log: foundLog,
+    })
+})
 //S for show
 
 app.get('/logs/:id', async (req, res) => {
