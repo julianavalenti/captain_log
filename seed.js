@@ -16,20 +16,20 @@ app.use(express.urlencoded({extended:false}));
 
 const logData = [
     {
-      title: "System Error",
-      entry: "The server crashed unexpectedly",
+      title: "First day trip",
+      entry: "The radar crushed unexpectedly",
       shipIsBroken: false,
       
     },
     {
-      title: "Database Connection Error",
-      entry: "Unable to establish connection to the database server",
-      shipIsBroken: false,
+      title: "Failed connection with base",
+      entry: "Unable to establish connection to the island",
+      shipIsBroken: true,
     },
     {
-      title: "Login Attempt",
-      entry: "User 'johndoe' attempted to login with an incorrect password",
-      shipIsBroken: true,
+      title: "Radar operating in single channel",
+      entry: "Able to establish connection",
+      shipIsBroken: false,
     },
     
   ];

@@ -4,6 +4,7 @@ const express = require("express")
 const mongoose = require("mongoose")
 const PORT = process.env.PORT;
 const DATABASE_URL = process.env.DATABASE_URL
+const methodOverride = require("method-override")
 const Log = require("./models/logs")
 
 const app = express()
@@ -14,7 +15,7 @@ db.on('error', (err) => console.log (err.message + ' is mongo not running?'));
 db.on('connected', () => console.log ('mongo connected'));
 db.on ('disconnected',() => console.log ('mongo disconnected'));
 
-// app.use(methodOverride("_method"))
+app.use(methodOverride("_method"))
 app.use(express.urlencoded({extended:false}));
 
 
@@ -32,6 +33,25 @@ app.get('/logs', async (req, res) => {
     );
 }); 
 
+//D for Delete
+
+app.delete('/logs/:id', async (req,res) => {
+    await Log.findByIdAndDelete(req.params.id)
+    res.redirect('/logs')
+})
+
+//U for update
+
+app.put("logs/:id", async (req,res)=> {
+await Log.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+{
+    new:true
+}
+)
+res.redirect('logs/${req.params.id}')
+})
 
 // C is for Create 
 
